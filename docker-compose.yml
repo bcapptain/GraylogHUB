@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  graylog-forwarder:
+    build: .
+    container_name: graylog-forwarder
+    ports:
+      - "${GELF_PORT}:${GELF_PORT}"  # GELF TCP port
+    environment:
+      - FUNCTION_URL=${FUNCTION_URL}  # Azure Function URL
+      - GELF_PORT=${GELF_PORT}  # GELF TCP port
+      - TZ=UTC  # Timezone
+      - PYTHONUNBUFFERED=1  # Force Python to run unbuffered
+    volumes:
+      - ./logs:/app/logs  # Optional: for persistent logs
+    restart: unless-stopped
+    tty: true  # Enable pseudo-TTY
+    stdin_open: true  # Keep STDIN open
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: [] 
