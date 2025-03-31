@@ -9,7 +9,7 @@ from typing import Optional
 import os
 import traceback
 
-# Configure logging to output to stdout only
+# Configure logging to output to stdout
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
